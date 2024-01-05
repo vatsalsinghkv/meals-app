@@ -8,7 +8,7 @@ import { RootStackParamList } from '../lib/utils/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Meals'>;
 
-const Meals = ({ route }: Props) => {
+const Meals = ({ route, navigation }: Props) => {
   const { categoryId } = route.params;
 
   const meals = MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
@@ -26,7 +26,12 @@ const Meals = ({ route }: Props) => {
       style={styles.container}
       data={meals}
       ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-      renderItem={({ item }) => <MealCard {...item} />}
+      renderItem={({ item }) => (
+        <MealCard
+          onPress={() => navigation.navigate('Meal', { id: item.id })}
+          {...item}
+        />
+      )}
       keyExtractor={(item) => item.id}
     />
   );

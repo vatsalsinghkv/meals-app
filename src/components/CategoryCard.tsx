@@ -62,17 +62,11 @@ const styles = StyleSheet.create({
     flex: 1,
     opacity: 0.55,
   },
-  text: { fontSize: 22, fontWeight: 'bold', color: '#fff' },
+  text: { fontSize: 18, fontWeight: 'bold', color: '#fff' },
   textContainer: {
     ...StyleSheet.absoluteFillObject,
     padding: 20,
     justifyContent: 'flex-end',
     alignItems: 'center',
-
-    // elevation: 5,
-    // shadowColor: '#000',
-    // shadowOpacity: 0.25,
-    // shadowRadius: 5,
-    // shadowOffset: { width: 0, height: 2 },
   },
 });

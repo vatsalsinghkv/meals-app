@@ -1,6 +1,8 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import {
   ColorValue,
+  ImageBackground,
   Pressable,
   PressableProps,
   StyleSheet,
@@ -16,37 +18,57 @@ interface Props extends Omit<PressableProps, 'children'> {
 
 const CategoryCard = ({ title, color, i, ...rest }: Props) => {
   return (
-    <View
-      style={[
-        styles.gridItem,
-        i % 2 === 0 ? { paddingRight: 10 } : { paddingLeft: 10 },
+    <Pressable
+      style={({ pressed }) => [
+        styles.container,
+        i % 2 === 0 ? { marginRight: 10 } : { marginLeft: 10 },
+        pressed && styles.pressed,
       ]}
+      {...rest}
     >
-      <Pressable style={({ pressed }) => pressed && styles.pressed} {...rest}>
-        <View style={[styles.container, { backgroundColor: color }]}>
-          <Text style={styles.text}>{title}</Text>
-        </View>
-      </Pressable>
-    </View>
+      {/* BG */}
+      <ImageBackground
+        source={{
+          uri: `https://source.unsplash.com/random/300x500?${title}-food,food`,
+        }}
+        style={styles.bgImg}
+        resizeMode='cover'
+      >
+        <LinearGradient
+          colors={['transparent', '#000']}
+          style={styles.gradient}
+        ></LinearGradient>
+      </ImageBackground>
+
+      <View style={[styles.textContainer]}>
+        <Text style={styles.text}>{title}</Text>
+      </View>
+    </Pressable>
   );
 };
 
 export default CategoryCard;
 
 const styles = StyleSheet.create({
-  gridItem: {
-    flex: 1,
-    height: 150,
-  },
-  text: { fontSize: 20, fontWeight: '500' },
-  pressed: { opacity: 0.5 },
   container: {
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    paddingHorizontal: 26,
+    flex: 1,
     borderRadius: 16,
+    height: 150,
+    overflow: 'hidden',
+  },
+  pressed: { opacity: 0.5 },
+  bgImg: { flex: 1, height: 150 },
+  gradient: {
+    flex: 1,
+    opacity: 0.55,
+  },
+  text: { fontSize: 22, fontWeight: 'bold', color: '#fff' },
+  textContainer: {
+    ...StyleSheet.absoluteFillObject,
+    padding: 20,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+
     // elevation: 5,
     // shadowColor: '#000',
     // shadowOpacity: 0.25,

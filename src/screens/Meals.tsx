@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { MealCard } from '../components';
+import { MealCard } from '../components/meals';
 import { MEALS } from '../lib/utils/data';
 import { RootStackParamList } from '../lib/utils/types';
 

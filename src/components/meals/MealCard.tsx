@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-import Meal from '../models/meal';
+import Meal from '../../models/meal';
 
 type Props = PressableProps &
   Pick<Meal, 'imageUrl' | 'title' | 'duration' | 'complexity'>;

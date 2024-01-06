@@ -13,7 +13,7 @@ const Categories = ({ navigation }: Props) => {
     <FlatList
       data={CATEGORIES}
       style={styles.container}
-      ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+      // ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
       renderItem={({ item, index }) => (
         <CategoryCard
           title={item.title}

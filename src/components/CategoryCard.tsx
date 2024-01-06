@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderRadius: 16,
+    marginBottom: 15,
     height: 150,
     overflow: 'hidden',
   },

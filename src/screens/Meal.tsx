@@ -1,14 +1,16 @@
 import { Entypo } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { List, Summary } from '../components/meals';
+import { Button } from '../components/ui';
 import { MEALS } from '../lib/utils/data';
 import { RootStackParamList } from '../lib/utils/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Meal'>;
 
-const Meal = ({ route }: Props) => {
+const Meal = ({ route, navigation }: Props) => {
   const { id } = route.params;
 
   const meal = MEALS.find((meal) => meal.id === id);
@@ -20,12 +22,23 @@ const Meal = ({ route }: Props) => {
       </View>
     );
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight() {
+        return (
+          <Button>
+            <Entypo name='heart-outlined' size={24} />
+          </Button>
+        );
+      },
+    });
+  });
+
   const {
     imageUrl,
     title,
     duration,
     complexity,
-    isVegetarian,
     affordability,
     steps,
     ingredients,
@@ -41,45 +54,14 @@ const Meal = ({ route }: Props) => {
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.header}>
-            {/* Title */}
             <Text style={styles.title}>{title}</Text>
-            {/* Summary */}
-            <View style={styles.summary}>
-              <View style={styles.summaryItem}>
-                <Entypo name='stopwatch' size={18} color={'#64748b'} />
-                <Text style={styles.textSm}>{duration} mins</Text>
-              </View>
-
-              <View style={styles.summaryItem}>
-                <Entypo name='emoji-happy' size={18} color={'#64748b'} />
-                <Text style={styles.textSm}>{complexity}</Text>
-              </View>
-              <View style={styles.summaryItem}>
-                <Entypo name='bar-graph' size={18} color={'#64748b'} />
-                <Text style={styles.textSm}>{affordability}</Text>
-              </View>
-            </View>
+            <Summary {...{ duration, complexity, affordability }} />
           </View>
 
           {/* Ingredients */}
-          <View>
-            <Text style={styles.heading}>ingredients</Text>
-            <View style={styles.list}>
-              {ingredients.map((ingredient) => (
-                <Text style={styles.text}>{ingredient}.</Text>
-              ))}
-            </View>
-          </View>
-
+          <List title='ingredients' list={ingredients} />
           {/* Steps */}
-          <View>
-            <Text style={styles.heading}>steps</Text>
-            <View style={styles.list}>
-              {steps.map((step) => (
-                <Text style={styles.text}>{step}.</Text>
-              ))}
-            </View>
-          </View>
+          <List title='steps' list={steps} />
         </View>
       </ScrollView>
     </View>
@@ -109,12 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 80,
   },
-  list: { gap: 5, marginTop: 12 },
-  listItem: {},
-  summary: { flexDirection: 'row', gap: 15 },
-  summaryItem: { flexDirection: 'row', gap: 5, alignItems: 'center' },
   header: { gap: 10 },
-
   // Texts
   title: {
     color: '#0f172a',
@@ -122,13 +99,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textTransform: 'capitalize',
   },
-  heading: {
-    color: '#0f172a',
-    fontWeight: '600',
-    fontSize: 20,
-    textTransform: 'capitalize',
-  },
-
-  textSm: { color: '#64748b', fontSize: 14, textTransform: 'capitalize' },
-  text: { color: '#475569', fontSize: 16, textTransform: 'capitalize' },
 });

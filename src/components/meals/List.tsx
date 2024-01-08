@@ -3,15 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
   title: string;
-  list: string[];
+  data: string[];
 };
 
-const List = ({ list, title }: Props) => {
+const List = ({ data, title }: Props) => {
   return (
     <View>
       <Text style={styles.heading}>{title}</Text>
       <View style={styles.list}>
-        {list.map((line, i) => (
+        {data.map((line, i) => (
           <Text
             key={line.slice(0, 5).replaceAll(' ', '-') + i}
             style={styles.text}

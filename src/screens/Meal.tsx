@@ -59,9 +59,9 @@ const Meal = ({ route, navigation }: Props) => {
           </View>
 
           {/* Ingredients */}
-          <List title='ingredients' list={ingredients} />
+          <List title='ingredients' data={ingredients} />
           {/* Steps */}
-          <List title='steps' list={steps} />
+          <List title='steps' data={steps} />
         </View>
       </ScrollView>
     </View>

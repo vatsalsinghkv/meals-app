@@ -1,10 +1,10 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 
 import { CategoryCard } from '../components';
 import { CATEGORIES } from '../lib/utils/data';
-import { RootStackParamList } from '../lib/utils/types';
+import { type RootStackParamList } from '../lib/utils/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Categories'>;
 

@@ -4,20 +4,18 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { MealCard } from '../components/meals';
-import { MEALS } from '../lib/utils/data';
-import { type RootStackParamList } from '../lib/utils/types';
+import useFavorites from '../lib/hooks/use-favorites';
+import { type FavoriteStackList } from '../lib/utils/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Meals'>;
+type Props = NativeStackScreenProps<FavoriteStackList, 'FavoriteMeals'>;
 
-const Meals = ({ route, navigation }: Props) => {
-  const { categoryId } = route.params;
+const FavoriteMealsScreen = ({ navigation }: Props) => {
+  const { favorites } = useFavorites();
 
-  const meals = MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
-
-  if (!meals) {
+  if (!favorites.length) {
     return (
       <View>
-        <Text>No meal found! for id: {categoryId}</Text>
+        <Text>No favorite meal found!</Text>
       </View>
     );
   }
@@ -25,7 +23,7 @@ const Meals = ({ route, navigation }: Props) => {
   return (
     <FlatList
       style={styles.container}
-      data={meals}
+      data={favorites}
       ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
       renderItem={({ item }) => (
         <MealCard
@@ -40,7 +38,7 @@ const Meals = ({ route, navigation }: Props) => {
   );
 };
 
-export default Meals;
+export default FavoriteMealsScreen;
 
 const styles = StyleSheet.create({
   container: {
